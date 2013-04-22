@@ -1,0 +1,31 @@
+{
+  "site": {
+    "site_url": "http://localhost:3002",
+    "site_name": "Node.JS Bootstrap",
+    "site_email": "Your email Address"
+  },
+  "database": {
+    "db_name": "bootstrap",
+    "url": "localhost",
+    "port": "27017",
+    "username": "",
+    "password": ""
+  },
+  "redis": {
+    "host": "",
+    "port": "",
+    "pass":""
+  },
+  "mail": {
+    "user":    "username", 
+    "password":"password", 
+    "host":    "smtp.gmail.com", 
+    "ssl":     true
+  },
+  "facebook": {
+    "clientID": "244734015556412",
+    "clientSecret": "def924b2231835f985af48880ca7ce1f",
+    "callbackURL": "http://localhost:3000/auth/facebook/callback"
+  }
+}
+
