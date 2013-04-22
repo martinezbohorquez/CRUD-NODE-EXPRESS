@@ -1,0 +1,11 @@
+extends layout
+block content
+	form#usuario(action="/users/crear", method="POST", data-ajax="false")
+		div(data-role="content")
+			div(data-role="fieldcontain")
+				label(for="nombre") Username:
+				input#nombre(type="text", name="nombre", value=user.name)
+			div(data-role="fieldcontain")
+				label(for="email") Username:
+				input#email(type="text", name="email", value=user.name)
+			input(value="Submit", type="submit")

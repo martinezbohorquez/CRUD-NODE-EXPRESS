@@ -1,0 +1,31 @@
+{
+  "site": {
+    "site_url": "http://localhost:3002",
+    "site_name": "",
+    "site_email": ""
+  },
+  "database": {
+    "db_name": "",
+    "url": "localhost",
+    "port": "27017",
+    "username": "",
+    "password": ""
+  },
+  "redis": {
+    "host": "",
+    "port": "",
+    "pass":""
+  },
+  "mail": {
+    "user":    "username", 
+    "password":"password", 
+    "host":    "smtp.gmail.com", 
+    "ssl":     true
+  },
+  "facebook": {
+    "clientID": "",
+    "clientSecret": "",
+    "callbackURL": "http://localhost:3000/auth/facebook/callback"
+  }
+}
+

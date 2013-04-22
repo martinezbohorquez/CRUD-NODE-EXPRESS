@@ -1,0 +1,7 @@
+extends layout
+block content
+	div(data-role="content")
+		ul(data-role="listview",data-divider-theme="a", data-inset="true")
+			li(data-role="list-divider", role="heading") Usuarios
+			each user in users
+				li(data-theme="c") <a href='/users/actualizar/#{user._id}'  > #{user.nombre} </a>
