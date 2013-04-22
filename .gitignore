@@ -15,3 +15,10 @@ npm-debug.log
 
 # Configuracion local
 configLocal.json
+node_modules
+node_modules/*
+node_modules/*/*
+node_modules/*/*/*
+node_modules/*/*/*/*
+node_modules/*/*/*/*/*
+node_modules/*/*/*/*/*/*
