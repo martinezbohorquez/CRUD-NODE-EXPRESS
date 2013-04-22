@@ -4,7 +4,7 @@
 */
 // Creación de la Conexión
 var mongoose        = require('mongoose')
-  , db_lnk          = 'mongodb://localhost/music4you'
+  , db_lnk          = 'mongodb://admin:startup@alex.mongohq.com:10007/app15165961'
   , db              = mongoose.createConnection(db_lnk)
 
 
