@@ -12,74 +12,95 @@ var mongoose        = require('mongoose')
 var userModel_schema = require( __dirname + '/../models/user.js')
   , User = db.model('User', userModel_schema)
 
-
+/*
+ * accessToken, 
+ * refreshToken, 
+ * profile, 
+ * done
+ *
+ * Una vez actentica el usuario ante facebook 
+ * comprobamos si se encuentra en el sistema y 
+ * lo  almacenamos o actualizamos
+*/
 exports.fbuser = function(accessToken, refreshToken, profile, done) 
 {
-   /* User.findOrCreate(
-    	{ facebookId: profile.id }, 
-    	function (err, user) 
-    	{
-      		return done(null, user);
-    	});
-*/
-    var id      = profile.id             || ''
-    var nombre  = profile.displayName    || ''
-    var email   = profile.emails         || ''
+  var id      = profile.id             || ''
+  var nombre  = profile.displayName    || ''
+  var email   = profile.emails         || ''
 
-    // Validemos que nombre o descripcion no vengan vacíos
-    if ((nombre=== '') || (email === '') || (id === '')) {
-      console.log('ERROR: Campos vacios')
-      return done('error', false);
+  // Validemos que los campos no esten vacios
+  if (
+      (nombre=== '') || 
+      (email === '') || 
+      (id === '')) 
+  {
+    console.log('ERROR: Campos vacios');
+    return done('Campos vacios', false);
+  }
+
+  // Buscar si es usuario existe
+  User.findOne(
+    { facebookId: profile.id }
+    , gotUser);
+
+  function gotUser (err, user) 
+  {
+    if (err) 
+    {
+      console.log(err)
+      return next(err)
     }
 
-    User.findOne(
-      { facebookId: profile.id }
-      , gotUser)
+    // si no exite se crea, encaso contrario se actualiza
+    if (!user) 
+    {
+      user = new User({
+        facebookId  :   id,
+        nombre      :   nombre,
+        email       :   email
+      });
+    } 
+    else 
+    {
+      user.facebookId = id
+      user.nombre     = nombre
+      user.email      = email
+    }
 
-    function gotUser (err, user) 
+    user.save(onSaved);
+
+    function onSaved (err) 
     {
       if (err) 
       {
         console.log(err)
         return next(err)
       }
-
-      if (!user) 
-      {
-        user = new User({
-          facebookId  :   id,
-          nombre      :   nombre,
-          email       :   email
-        });
-
-        
-      } 
-      else 
-      {
-        user.facebookId = id
-        user.nombre     = nombre
-        user.email      = email
-      }
- 
-      user.save(onSaved);
-
-      function onSaved (err) 
-      {
-        if (err) 
-        {
-          console.log(err)
-          return next(err)
-        }
-        return done(null, { id: user.facebookId.toString(), username: user.nombre.toString() } );
-      }
+      return done(null, user );
+      //return done(null, { id: user.facebookId.toString(), username: user.nombre.toString() } );
     }
   }
+}
 
- exports.fbuserAuth = function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  }
 
+/*
+ *
+ * Accion despues de la autenticacion
+ * del usuario
+ * 
+*/
+exports.fbuserAuth = function(req, res) 
+{
+  res.redirect('/');
+}
+
+
+/*
+ *
+ * Listo todos los Usuarios
+ * 
+ * 
+*/
 exports.list = function(req, res) 
 {
 
@@ -91,10 +112,16 @@ exports.list = function(req, res)
       return next()
     }
 
-    return res.render('user/user', {title: 'Nuevo user', users: users})
+    return res.render('user/user', {title: 'Nuevo user', users: users.sort({nombre: -1})})
   }
 }
 
+/*
+ *
+ * 
+ * Recupera los datos para editar el usuario
+ * 
+*/
 exports.show_edit = function(req, res) 
 {
 
@@ -112,6 +139,12 @@ exports.show_edit = function(req, res)
   }
 }
 
+/*
+ *
+ * 
+ * Actualiza el usuario en la base de datos
+ * 
+*/
 exports.update = function (req, res, next) {
   var id = req.params.id
 
@@ -154,7 +187,13 @@ exports.update = function (req, res, next) {
   }
 }
 
- exports.create = function (req, res, next) {
+/*
+ *
+ * Crea un usuario en la base de datos
+ * 
+ * 
+*/
+exports.create = function (req, res, next) {
   if (req.method === 'GET') 
   {
     return res.render('user/crear', {title: 'Nuevo user', user: {}})
@@ -170,7 +209,6 @@ exports.update = function (req, res, next) {
       console.log('ERROR: Campos vacios')
       return res.send('Hay campos vacíos, revisar')
     }
-
 
     // Creamos el documento y lo guardamos
     var user = new User({

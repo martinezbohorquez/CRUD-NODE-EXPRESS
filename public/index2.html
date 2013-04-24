@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang="en">  
+<head> 
+    <title>My Page</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+    <script type='text/javascript' src='http://knockoutjs.com/downloads/knockout-2.2.1.js'></script>
+    <script type='text/javascript' src='/javascripts/musica.js' defer="defer"></script>
+</head> 
+
+<body> 
+
+<!-- Start of first page -->
+<div data-role="page" id="lActive">
+
+    <div data-role="header">
+        <h1>Foo</h1>
+        <a href="#lAdd">+</a>
+    </div><!-- /header -->
+
+    <div data-role="content">   
+        
+        <div data-role="content">   
+            <ul data-role="listview" data-divider-theme="a" data-inset="true" data-filter="true" filterPlaceholder="Busque su cansion">
+                <li data-theme="c">
+                    <a href="#" > <b >demo 1</b></a>
+                </li>
+                <li data-theme="c">
+                    <a href="#" > <b >demo 2</b></a>
+                </li>
+                <li data-theme="c">
+                    <a href="#" > <b >demo 3</b></a>
+                </li>
+                <li data-theme="c">
+                    <a href="#" > <b >demo 4</b></a>
+                </li>
+            </ul>     
+        </div>
+
+    </div><!-- /content -->
+
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h4>Page Footer</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- Start of second page -->
+<div data-role="page" id="lAdd">
+
+    <div data-role="header">
+        <div data-role="fieldcontain">
+            <input type="text" data-bind="value: InputValue, enterKey: keypressong"  placeholder="Buscar cansion" data-clear-btn="true" data-icon="search" />
+            <input type="button" value="test" data-bind="click: keypressong" />
+            </div>
+
+            
+    </div><!-- /header -->
+
+    <div data-role="content">   
+        <div data-role="content">   
+            <ul data-role="listview" data-bind="foreach: song" data-divider-theme="a" data-inset="true" data-filter="true" filterPlaceholder="Busque su cansion">
+                <li data-theme="c">
+                    <a href="#lActive" >
+                        <img data-bind="attr: { src: sArtistPicture, title: sArtistName }" /> 
+                        <b data-bind="text: sTitle"></b>
+                    </a>
+                </li>
+            </ul>     
+        </div>
+    </div><!-- /content -->
+
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h4>Page Footer</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>

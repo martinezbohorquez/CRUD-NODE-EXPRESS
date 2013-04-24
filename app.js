@@ -12,6 +12,7 @@ var express   = require('express')
   , log4js    = require('log4js')
   , log       = log4js.getLogger('app')
   , userAuth  = require( __dirname + '/app/controllers/user.js')
+  , musica    = require( __dirname + '/app/controllers/musica.js')
   , passport  = require('passport')
   , util      = require('util')
   , FacebookStrategy = require('passport-facebook').Strategy
@@ -87,6 +88,10 @@ app.post('/users/crear' , userAuth.create);
 app.get('/users/user' , userAuth.list);
 app.get('/users/actualizar/:id' , userAuth.show_edit);
 app.post('/users/actualizar/:id' , userAuth.update);
+
+app.get('/musica/:metodo/:valor' , musica.musica);
+app.get('/musica/:metodo/:valor/:pag' , musica.musica);
+
 
 // Enrutamimento a facebook
 //app.get( '/auth/facebook', passport.authenticate('facebook'));
