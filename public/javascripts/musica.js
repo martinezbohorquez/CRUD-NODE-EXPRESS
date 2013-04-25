@@ -48,14 +48,6 @@ function AppViewModelSong()
 										, sArtistName : v.artist.name
 										, sArtistPicture : v.artist.picture
 									}); 
-						console.log( 	v.id + ' ' + 
-										v.title + ' ' + 
-										v.album.id + ' ' + 
-										v.album.title + ' ' + 
-										v.album.cover + ' ' + 
-										v.artist.id + ' ' + 
-										v.artist.name + ' ' +
-										v.artist.picture);
 				});
 				if (typeof data.prev != 'undefined')
 			    	self.prev.push({ value: '/musica/buscar/' + data.prev.replace('https://api.deezer.com/2.0/search?q=','').replace('&index=','/')});

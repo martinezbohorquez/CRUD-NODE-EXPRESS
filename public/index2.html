@@ -59,7 +59,7 @@
             
     </div><!-- /header -->
 
-    <div data-role="content">   
+    <div data-role="content" data-bind="visible: song().length > 0">   
         <div data-role="content">   
             <ul data-role="listview" data-bind="foreach: song" data-divider-theme="a" data-inset="true" data-filter="true" filterPlaceholder="Busque su cansion">
                 <li data-theme="c">

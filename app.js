@@ -16,7 +16,8 @@ var express   = require('express')
   , passport  = require('passport')
   , util      = require('util')
   , FacebookStrategy = require('passport-facebook').Strategy
-  , email     = require("./node_modules/emailjs/email");
+  , email     = require("./node_modules/emailjs/email")
+  , io        = require('socket.io');
 
 
 /**
@@ -100,7 +101,10 @@ app.get( '/auth/facebook/callback'
   , passport.authenticate('facebook', { failureRedirect: '/login' })
   , userAuth.fbuserAuth);
 
+server = http.createServer(app);
+io.listen(server);
 
-http.createServer(app).listen(app.get('port'),'0.0.0.0', function(){
+server.listen(app.get('port'),'0.0.0.0', function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
