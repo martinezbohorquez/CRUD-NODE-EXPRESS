@@ -4,7 +4,11 @@
 */
 // Creación de la Conexión
 var mongoose        = require('mongoose')
+<<<<<<< HEAD
   , db_lnk          = 'mongodb://localhost/music4you'
+=======
+  , db_lnk          = 'mongodb://admin:sw2013@linus.mongohq.com:10079/app15334359'
+>>>>>>> merge entre
   , db              = mongoose.createConnection(db_lnk)
 
 
