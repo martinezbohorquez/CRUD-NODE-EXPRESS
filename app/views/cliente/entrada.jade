@@ -1,3 +1,11 @@
 extends layout
 block content
 	div(data-role="content")
+		a(data-role="button", onclick="enviarwoman()") Sumar Mujeres
+		a(data-role="button", onclick="enviarmen()" ) Sumar Hombre
+		br
+		br
+		h1 Mujeres 
+		div(id="valWoman")
+		h1 Hombre
+		div(id="valMen")

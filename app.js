@@ -13,13 +13,13 @@ var express   = require('express')
   , log       = log4js.getLogger('app')
   , userAuth  = require( __dirname + '/app/controllers/user.js')
   , musica    = require( __dirname + '/app/controllers/musica.js')
-  , cliente    = require( __dirname + '/app/controllers/cliente.js')
+  , cliente   = require( __dirname + '/app/controllers/cliente.js')
+  , userbar   = require( __dirname + '/app/controllers/userbar.js')
   , passport  = require('passport')
   , util      = require('util')
   , FacebookStrategy = require('passport-facebook').Strategy
   , email     = require("./node_modules/emailjs/email")
-  , io        = require('socket.io');
-
+  , socketio  = require('socket.io');
 
 /**
  * Lectura de Cconfiguracion 
@@ -96,6 +96,9 @@ app.get('/musica/:metodo/:valor/:pag' , musica.musica);
 
 
 app.get('/cliente/entrada' , cliente.entrada);
+app.get('/cliente/configuracion' , cliente.configuracion);
+
+app.get('/userbar/entrada' , userbar.entrada);
 
 
 // Enrutamimento a facebook
@@ -105,8 +108,24 @@ app.get( '/auth/facebook/callback'
   , passport.authenticate('facebook', { failureRedirect: '/login' })
   , userAuth.fbuserAuth);
 
+
+var events = {
+  addmen: './servicios/servicios.js'
+};
 server = http.createServer(app);
-io.listen(server);
+var io = socketio.listen(server);
+
+//heroku configuration
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
+
+io.sockets.on('connection', function (socket) {
+    for(event in events) {
+      require(events[event]).bind(socket);
+    }
+});
 
 server.listen(app.get('port'),'0.0.0.0', function(){
   console.log('Express server listening on port ' + app.get('port'));

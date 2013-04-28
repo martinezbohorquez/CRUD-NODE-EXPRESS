@@ -1,0 +1,8 @@
+extends layout
+block content
+	div(data-role="content", data-bind="visible: song().length > 0")
+		div(class="ui-grid-c", data-bind="foreach: song")
+			div(class="ui-block-a", data-bind="text: sTitle")
+			div(class="ui-block-b", data-bind="text: sTitle")
+			div(class="ui-block-c", data-bind="text: sTitle")
+			div(class="ui-block-d", data-bind="text: sTitle")
