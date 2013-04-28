@@ -1,8 +1,13 @@
 extends layout
 block content
-	div(data-role="content", data-bind="visible: song().length > 0")
-		div(class="ui-grid-c", data-bind="foreach: song")
-			div(class="ui-block-a", data-bind="text: sTitle")
-			div(class="ui-block-b", data-bind="text: sTitle")
-			div(class="ui-block-c", data-bind="text: sTitle")
-			div(class="ui-block-d", data-bind="text: sTitle")
+	div(data-role="content", data-bind="visible: disco().length > 0")
+		div(class="ui-grid-c")
+			div(class="ui-block-a") Nombre Disco
+			div(class="ui-block-b") Mujeres
+			div(class="ui-block-c") Hombre
+			div(class="ui-block-d") Ocupacion
+		div(class="ui-grid-c", data-bind="foreach: disco")
+			div(class="ui-block-a", data-bind="text: Nombre")
+			div(class="ui-block-b", data-bind="text: Pmujeres")
+			div(class="ui-block-c", data-bind="text: Phombres")
+			div(class="ui-block-d", data-bind="text: Porcenta")

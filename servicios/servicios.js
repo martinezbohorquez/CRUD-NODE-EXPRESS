@@ -1,11 +1,16 @@
 
+var sumamen = 0;
+var sumawoman = 0;
+
 exports.bind = function (socket) {
   socket.on('add-men', function (data) {
-      socket.emit('get-add-men', { datasend: data.num } );
-      socket.broadcast.emit('get-add-men', { datasend: data.num } );
+  	  sumamen +=  parseInt(data.num);
+      socket.emit('get-add-men', { datasend: sumamen} );
+      socket.broadcast.emit('get-add-men', { datasend: sumamen } );
   });
   socket.on('add-woman', function (data) {
-      socket.emit('get-add-woman', { datasend: data.num } );
-      socket.broadcast.emit('get-add-woman', { datasend: data.num } );
+  		sumawoman += parseInt(data.num);
+      socket.emit('get-add-woman', { datasend: sumawoman } );
+      socket.broadcast.emit('get-add-woman', { datasend: sumawoman } );
   });
 }

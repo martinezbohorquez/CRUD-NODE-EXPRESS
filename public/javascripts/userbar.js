@@ -6,7 +6,7 @@
 var socket = io.connect();
 var men = 50
 	, woman = 50
-	, porce = 50;
+	, cupo = 300;
 
 //carga inicial del valores
 socket.emit('add-men', { num: '0' });
@@ -19,53 +19,48 @@ function AppViewModelDisco()
     self.disco = ko.observableArray([]);
     
     self.InputValue = ko.observable('');
-    
-
 }
 
-var sModel = new AppViewModelSong()
+var sModel = new AppViewModelDisco()
 ko.applyBindings(sModel);
 
 
 // Valor enviado de la vueco valor puesto
 socket.on('get-add-men', function (data) {
-
-	self.song.removeAll();
-	men = data.num;
-	self.song.push({
-					, Nombre : "Santo Pecado"
-					, Pmujeres : "% " + woman
-					, Phombres : "% " + men
-					, Porcenta : "% " + porce});
+	
+	sModel.disco.removeAll();
+	men = data.datasend;
 	genericos();
 
 });
 
 socket.on('get-add-woman', function (data) {
-	woman = data.num;
-	self.song.push({
-					, Nombre : "Santo Pecado"
-					, Pmujeres : "% " + woman
-					, Phombres : "% " + men
-					, Porcenta : "% " + porce});
+	sModel.disco.removeAll();
+	woman = data.datasend;
+	
 	genericos();
 });
 
 function genericos()
 {
-	self.song.push({
-					, Nombre : "Nuestro Bar"
-					, Pmujeres : "% 60"
-					, Phombres : "% 25"
-					, Porcenta : "% 50"});
-	self.song.push({
-					, Nombre : "La 5 Avenida"
-					, Pmujeres : "% 49 "
-					, Phombres : "% 50"
-					, Porcenta : "% 50"});
-	self.song.push({
-					, Nombre : "Barlovento"
-					, Pmujeres : "% 70"
-					, Phombres : "% 10"
-					, Porcenta : "% 50"});
+	sModel.disco.push({
+					 Nombre : "Santo Pecado"
+					, Pmujeres : " " + woman
+					, Phombres : " " + men
+					, Porcenta : " " + (parseInt(woman) + parseInt(men)) + "/300"   });
+	sModel.disco.push({
+					 Nombre : "Nuestro Bar"
+					, Pmujeres : " 60"
+					, Phombres : " 25"
+					, Porcenta : " 85/400"});
+	sModel.disco.push({
+					 Nombre : "La 5 Avenida"
+					, Pmujeres : " 49 "
+					, Phombres : " 50"
+					, Porcenta : " 99/150"});
+	sModel.disco.push({
+					 Nombre : "Barlovento"
+					, Pmujeres : " 70"
+					, Phombres : " 10"
+					, Porcenta : " 80/120"});
 }

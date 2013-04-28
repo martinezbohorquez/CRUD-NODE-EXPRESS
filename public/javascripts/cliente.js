@@ -3,11 +3,11 @@ var socket = io.connect();
 
 // Valor enviado de la vueco valor puesto
 socket.on('get-add-men', function (data) {
-	$('#valMen').append(data.datasend);
+	$('#valMen').html(data.datasend);
 });
 
 socket.on('get-add-woman', function (data) {
-	$('#valWoman').append(data.datasend);
+	$('#valWoman').html(data.datasend);
 });
 
 //carga inicial del valores
